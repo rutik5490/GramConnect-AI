@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tricolor-height: 4px;
+}
+
+html, body {
+  background: #F5F4EF;
+  color: #1A1A1A;
+}
+
+body {
+  font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+}
+
+.font-display {
+  font-family: 'Noto Serif', 'Noto Serif Devanagari', serif;
+}
+
+/* Government letterhead tricolor strip - the signature motif used at the very
+   top of every screen, echoing an official gazette / letterhead. */
+.tricolor-strip {
+  height: var(--tricolor-height);
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    #FF9933 0%, #FF9933 33.33%,
+    #FFFFFF 33.33%, #FFFFFF 66.66%,
+    #138808 66.66%, #138808 100%
+  );
+  flex-shrink: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9C4B4;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes chakra-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-chakra {
+  animation: chakra-spin 2.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-chakra {
+    animation: none;
+  }
+}
+
+/* Focus visibility for keyboard navigation */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid #0B3D6B;
+  outline-offset: 2px;
+}
