@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: gramconnect
+      POSTGRES_PASSWORD: gramconnect
+      POSTGRES_DB: gramconnect_ai
+    ports:
+      - "5432:5432"
+    volumes:
+      - gramconnect_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gramconnect"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://gramconnect:gramconnect@db:5432/gramconnect_ai
+      SECRET_KEY: change-this-to-a-long-random-string
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      FRONTEND_ORIGIN: http://localhost:5173
+    ports:
+      - "8000:8000"
+    volumes:
+      - gramconnect_reports:/app/generated_reports
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  gramconnect_pgdata:
+  gramconnect_reports:
