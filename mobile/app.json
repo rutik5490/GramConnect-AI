@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "GramConnect AI",
+    "slug": "gramconnect-ai-citizen",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#0B3D6B"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ai.gramconnect.citizen"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0B3D6B"
+      },
+      "package": "ai.gramconnect.citizen"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "apiBaseUrl": "http://localhost:8000"
+    }
+  }
+}
